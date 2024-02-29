@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>time timer</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <style>
+
+    /* CSS */
+
+    .timer-container {
+
+      position: relative;
+
+      width: 400px;
+
+      height: 400px;
+
+      margin: 50px auto;
+
+    }
+
+    .timer {
+
+      position: absolute;
+
+      top: 0;
+
+      left: 0;
+
+      width: 100%;
+
+      height: 100%;
+
+      border: 2px solid skyblue; /* 색으로 변경 */
+
+      border-radius: 50%;
+
+      animation: timerAnimation linear forwards;
+
+    }
+
+    @keyframes timerAnimation {
+
+      0% { transform: rotate(0deg); }
+
+      100% { transform: rotate(360deg); }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="timer-container">
+
+    <div class="timer"></div>
+
+  </div>
+
+  <div>
+
+    <label for="timer-input">타이머 시간 설정 (분):</label>
+
+    <input type="number" id="timer-input" min="1" value="1">
+
+    <button onclick="startTimer()">시작</button>
+
+  </div>
+
+  <script>
+
+    // JavaScript
+
+    var timerDuration = 60;
+
+    var progressBar = document.querySelector('.timer');
+
+    var timerInterval;
+
+    function updateTimer() {
+
+      if (timerDuration === 0) {
+
+        progressBar.style.animation = 'none';
+
+      } else {
+
+        var timerInput = document.getElementById('timer-input');
+
+        var inputValue = parseInt(timerInput.value);
+
+        var progressPercentage = ((timerDuration) / (inputValue * 60)) * 100;
+
+        progressBar.style.background = 'conic-gradient(skyblue ' + progressPercentage + '%, transparent 0)'; /* 색으로 변경 */
+
+      }
+
+      document.getElementById('timer-value').textContent = timerDuration; /* 타이머에 남은 시간 표시 */
+
+    }
+
+    function startTimer() {
+
+      clearInterval(timerInterval); // 이전 타이머 인터벌 제거
+
+      var timerInput = document.getElementById('timer-input');
+
+      timerDuration = parseInt(timerInput.value) * 60;
+
+      timerInterval = setInterval(function() {
+
+        timerDuration--;
+
+        updateTimer();
+
+        if (timerDuration === 0) {
+
+          clearInterval(timerInterval);
+
+        }
+
+      }, 1000);
+
+    }
+
+  </script>
+
+</body>
+
+</html>
+<!-- partial -->
+  
+</body>
+</html>
